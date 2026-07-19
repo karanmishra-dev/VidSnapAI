@@ -22,7 +22,7 @@ def create_reel(folder):
         f'-shortest '
         f'-r 30 '
         f'-pix_fmt yuv420p '
-        f'"static/{folder}.mp4"'
+        f'"static/reels/{folder}.mp4"'
     )
 
     subprocess.run(command, shell=True, check=True)

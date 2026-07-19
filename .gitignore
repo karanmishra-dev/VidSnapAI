@@ -4,3 +4,4 @@ __pycache__/
 user_uploads/
 done.txt
 static/*.mp4
+static/reels/*.mp4
