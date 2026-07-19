@@ -20,6 +20,7 @@ def create():
         print(request.files.keys())
         rec_id=request.form.get("uuid") #receive id ->as inside html <input name="uuid" so we are putting .get("uuid")
         desc=request.form.get("text")#it is the description that we are giving to create reels
+        input_files=[]
         for key,value in request.files.items():
             print(key,value)
             # Upload all the files 
@@ -29,10 +30,13 @@ def create():
                 if(not(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'],rec_id)))):
                     os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'],rec_id))
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],rec_id,filename))
+                input_files.append(file.filename)
             #capture the description and save it into file
             with open(os.path.join(app.config['UPLOAD_FOLDER'],rec_id,"desc.txt"),"w") as f:
                 f.write(desc)
-                   
+        for fl in input_files:
+            with open(os.path.join(app.config['UPLOAD_FOLDER'],rec_id, "input.txt"),"a") as f:
+                f.write(f"file '{fl}'\nduration 1\n")
     return render_template("create.html",my_id=my_id)
 
 @app.route("/gallery")
